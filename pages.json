@@ -72,7 +72,21 @@
     "style": {
       "navigationBarTitleText": "浏览文本"
     }
-  }],
+  },{
+    "path": "pages/work/wenjuan",
+    "style": {
+      "navigationBarTitleText": ""
+    }
+  }
+  
+  // {
+  // 	"path" : "api/work,js/work,js",
+  // 	"style" : 
+  // 	{
+  // 		"navigationBarTitleText" : ""
+  // 	}
+  // }
+  ],
   "tabBar": {
     "color": "#000000",
     "selectedColor": "#000000",

@@ -18,13 +18,13 @@
             </view>
           </view>
         </view>
-        <view @click="handleToInfo" class="flex align-center">
+        <!-- <view @click="handleToInfo" class="flex align-center">
           <text>个人信息</text>
           <view class="iconfont icon-right"></view>
-        </view>
+        </view> -->
       </view>
     </view>
-
+<!-- 
     <view class="content-section">
       <view class="mine-actions grid col-4 text-center">
         <view class="action-item" @click="handleJiaoLiuQun">
@@ -72,7 +72,7 @@
         </view>
       </view>
 
-    </view>
+    </view> -->
   </view>
 </template>
 
