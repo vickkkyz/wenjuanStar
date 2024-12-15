@@ -14,8 +14,8 @@
     <!-- 宫格组件 -->
     <uni-section title="问卷测评" type="line"></uni-section>
     <view class="grid-body">
-      <uni-grid :column="4" :showBorder="false" @change="changeGrid">
-        <uni-grid-item v-for="(item, index) in data2" :key="index">
+      <uni-grid :column="4" :showBorder="false" @change="checkboxChange($event)">
+        <uni-grid-item  :index=index v-for="(item, index) in data2" :key="index" >
           <view class="grid-item-box">
             <uni-icons type="person-filled" size="30"></uni-icons>
             <text class="text">{{item.name}}</text>
@@ -30,7 +30,7 @@
 
 
 <script>
-	import { getPeopleList } from '@/api/work'
+	import { getPeopleList,getStatus} from '@/api/work'
   export default {
     data() {
       return {
@@ -42,6 +42,8 @@
         ],
 		data2: [],
 		name: this.$store.state.user.name,
+		status: 0,
+		evaluatedName: null
       }
     },
 	mounted(){
@@ -51,6 +53,7 @@
 	  getList(){
 		getPeopleList(this.name).then(res=>{
 			this.data2 = res
+			console.log(this.data2)
 		})
 	  },
       clickBannerItem(item) {
@@ -59,8 +62,26 @@
       changeSwiper(e) {
         this.current = e.detail.current
       },
-      changeGrid(e) {
-        this.$tab.navigateTo('/pages/work/wenjuan')
+      checkboxChange(e) {	
+		  let evaluatedName
+		  let evaluateName = this.name 
+		  getPeopleList(evaluateName).then(res=>{
+		  	evaluatedName = res[e.detail.index].name
+			console.log(evaluateName)
+		  	getStatus(evaluateName,evaluatedName).then(res=>{
+				if(res == 0){
+					uni.navigateTo({
+						url: '/pages/work/wenjuan?evaluateName='+evaluateName+
+						'&evaluatedName='+evaluatedName
+					})
+					// this.$tab.navigateTo('/pages/work/wenjuan')
+				}else{
+					this.$modal.alert("您已完成当前问卷~");
+				}
+			})
+			
+		  })
+		
       }
     }
   }
