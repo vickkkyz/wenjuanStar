@@ -9,12 +9,24 @@
 				</view>
 
 				<view v-if="item.qd_answer_type==5">
-					<radio-group class="radioBox">
+					<radio-group class="radioBox" v-model="xxx[index]">
+						<template v-for="(item2, index) in radioData">
+							<radio :value="item.value" :key="index" :label="item2.name" color="red">{{item2.name}}
+							</radio>
+						</template>
+					</radio-group>
+					<!-- <radio-group class="radioBox" @change="(e) => radioChange(e,item.name)">
+						<template v-for="(item2, index) in radioData">
+							<radio :value="item.value" :key="index" :label="item2.name" color="red">{{item2.name}}
+							</radio>
+						</template>
+					</radio-group> -->
+					<!-- <radio-group class="radioBox">
 						<template v-for="item in radioData">
 							<radio :value="item.value" :key="item.key" :label="item.name" color="red">{{item.name}}
 							</radio>
 						</template>
-					</radio-group>
+					</radio-group> -->
 				</view>
 			</view>
 		</view>
@@ -34,8 +46,9 @@
 		},
 		data() {
 			return {
-				evaluateName: null,
-				evaluatedName: "null",
+				evaluateName: '',
+				evaluatedName: '',
+				xxx:[],
 				radioData: [{
 						value: '5',
 						name: '优秀',
@@ -84,23 +97,20 @@
 			getWenjuan(){
 				getData(this.evaluateName,this.evaluatedName).then(res=>{
 					this.jsonData = res
-					console.log('hhhhh',this.evaluateName)
-					console.log(this.jsonData)
+					console.log('hhhhh',res)
+					console.log("wwww",this.jsonData)
 				})
 			},
-			radioChange: function(e) {
-				this.jsonData.qd_value === this.jsonData.qd_answer_options.key.toString();
-				console.log('当前选中为', this.jsonData.qd_answer_options)
+			radioChange: function(e,name) {
+				console.log(name)
+				// this.jsonData.qd_value === this.jsonData.qd_answer_options.key.toString();
+				// console.log('当前选中为', this.jsonData.qd_answer_options)
 			},
-			
-			/**
-			 * 跳转
-			 */
 			toHome: function() {
-				
-				uni.navigateTo({
-					url: '/pages/work/index'
-				})
+				console.log("aaaaa",this.xxx)
+				// uni.navigateTo({
+				// 	url: '/pages/work/index'
+				// })
 			}
 		}
 	};
